@@ -32,13 +32,11 @@ const Details = () => {
     navigate("/login");
   };
 
- 
-  const filteredBooks = books.filter((book) =>
-    book.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    book.author.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredBooks = books.filter(
+    (book) =>
+      book.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      book.author.toLowerCase().includes(searchTerm.toLowerCase())
   );
-
-  console.log("Filtered Books:", filteredBooks);
 
   return (
     <div className="dashboard">
@@ -46,36 +44,33 @@ const Details = () => {
 
       <main className="content">
         <header className="topbar">
-          <input
-            type="text"
-            placeholder="Search by title or author..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-       <div className="search-box">
-  <input
-    type="text"
-    placeholder="Search by title or author..."
-    value={searchTerm}
-    onChange={(e) => setSearchTerm(e.target.value)}
-  />
+          {/* 🔍 SEARCH WITH DROPDOWN */}
+          <div className="search-box">
+            <input
+              type="text"
+              placeholder="Search by title or author..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
 
-  {searchTerm && (
-    <ul className="dropdown">
-      {filteredBooks.length > 0 ? (
-        filteredBooks.map((book) => (
-          <li key={book._id} className="dropdown-item">
-            {book.title} — {book.author}
-          </li>
-        ))
-      ) : (
-        <li className="dropdown-item">No books found</li>
-      )}
-    </ul>
-  )}
-</div>
-
-
+            {searchTerm && (
+              <ul className="dropdown">
+                {filteredBooks.length > 0 ? (
+                  filteredBooks.map((book) => (
+                    <li
+                      key={book._id}
+                      className="dropdown-item"
+                      onClick={() => setSearchTerm(book.title)}
+                    >
+                      <strong>{book.title}</strong> — {book.author}
+                    </li>
+                  ))
+                ) : (
+                  <li className="dropdown-item">No books found</li>
+                )}
+              </ul>
+            )}
+          </div>
 
           <div className="profile">
             <span>Austin Robertson</span>
